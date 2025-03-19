@@ -4,7 +4,7 @@ import * as yup from 'yup'
 import axiosInstance from "../../api/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useFormik } from "formik";
 
 const RegisterContainer = () => {

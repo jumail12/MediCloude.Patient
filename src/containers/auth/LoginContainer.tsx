@@ -3,7 +3,7 @@ import LoginForm from "../../components/auth/LoginForm";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import axiosInstance from "../../api/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 
@@ -46,7 +46,8 @@ const LoginContainer = () => {
       localStorage.setItem("email", res.data.email);
       localStorage.setItem("id", res.data.patient_id);
       toast.success("User Login Successfull", {
-        onClose: () => navigate("/"),
+        duration: 3000, 
+        onAutoClose: () => navigate("/",{replace:true}),
       });
     },
     onError: (error: any) => {

@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../api/axiosInstance";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import OTP from "../../components/OtpInput";
 
 const VerifyOtpContainer = () => {
@@ -31,7 +31,8 @@ const VerifyOtpContainer = () => {
     },
     onSuccess: (data: any) => {
       toast.success(data, {
-        onClose: () =>
+        duration: 3000, 
+        onAutoClose: () =>
           navigate(
             verificationType === "reset" ? "/auth/resetpw" : "/auth/login"
           ),

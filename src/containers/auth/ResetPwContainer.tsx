@@ -3,7 +3,7 @@ import ResetPwForm from "../../components/auth/ResetPwForm";
 import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../api/axiosInstance";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 
@@ -38,7 +38,8 @@ const ResetPwContainer = () => {
     },
     onSuccess: (data:any) => {
       toast.success(data, {
-        onClose: () => navigator("/auth/login"),
+        duration: 3000, 
+        onAutoClose: () => navigator("/auth/login"),
       });
     },
     onError: (err: any) => {
