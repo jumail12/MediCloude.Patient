@@ -1,11 +1,11 @@
 import { Box } from "@mui/material"
 import RegisterForm from "../../components/auth/RegisterForm"
 import * as yup from 'yup'
-import axiosInstance from "../../api/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useFormik } from "formik";
+import { authAxios } from "../../api/axiosInstance";
 
 const RegisterContainer = () => {
   const validationSchema = yup.object({
@@ -43,7 +43,7 @@ const RegisterContainer = () => {
       email: string;
       password: string;
     }) => {
-      const res = await axiosInstance.post("/PatientAuth/register", {
+      const res = await authAxios.post("/PatientAuth/register", {
         Patient_name:name,
         email,
         password,

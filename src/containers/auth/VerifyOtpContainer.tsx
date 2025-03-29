@@ -2,9 +2,9 @@ import { Box, Button, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axiosInstance from "../../api/axiosInstance";
 import { toast } from "sonner";
 import OTP from "../../components/OtpInput";
+import { authAxios } from "../../api/axiosInstance";
 
 const VerifyOtpContainer = () => {
   const [otp, setOtp] = useState("");
@@ -23,7 +23,7 @@ const VerifyOtpContainer = () => {
 
   const verifyOtpMutation = useMutation({
     mutationFn: async () => {
-      const res = await axiosInstance.post(getApiEndpoint(), {
+      const res = await authAxios.post(getApiEndpoint(), {
         email,
         otp,
       });

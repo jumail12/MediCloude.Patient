@@ -2,10 +2,11 @@ import { Box } from "@mui/material";
 import ResetPwForm from "../../components/auth/ResetPwForm";
 import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
-import axiosInstance from "../../api/axiosInstance";
+
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { authAxios } from "../../api/axiosInstance";
 
 const ResetPwContainer = () => {
   const validationSchema = yup.object({
@@ -28,7 +29,7 @@ const ResetPwContainer = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: async (password: string) => {
       const email = localStorage.getItem("email");
-      const res = await axiosInstance.patch(
+      const res = await authAxios.patch(
         `/PatientAuth/reset-password`,{
             email,
             new_password:password

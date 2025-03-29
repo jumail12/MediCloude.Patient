@@ -43,6 +43,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.clear();
     toast.info("Logged out successfully!");
+    handleClose();
   };
 
   return (

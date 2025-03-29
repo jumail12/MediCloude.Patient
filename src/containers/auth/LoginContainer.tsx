@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { toast } from "sonner";
-import axiosInstance from "../../api/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
+import { authAxios } from "../../api/axiosInstance";
 
 const LoginContainer = () => {
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ const LoginContainer = () => {
       email: string;
       password: string;
     }) => {
-      const res = await axiosInstance.post("/PatientAuth/login", {
+      const res = await authAxios.post("/PatientAuth/login", {
         email,
         password,
       });

@@ -9,15 +9,22 @@ import ResetPw from "./pages/auth/ResetPw";
 import { Toaster } from "sonner";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import NotFoundPage from "./components/NotFoundPage";
+import GetAllDrsPage from "./pages/GetAllDrsPage";
+import DrByIdPage from "./pages/DrByIdPage";
 function App() {
   const location = useLocation();
-  const hideNavFot = location.pathname.startsWith("/auth"); 
+  const hideNavFot = location.pathname.startsWith("/auth");
   return (
     <Box>
       <Toaster position="top-right" richColors />
-      {!hideNavFot && <Navbar/>}
+      {!hideNavFot && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/consult" element={<GetAllDrsPage/>}/>
+        <Route path="/consult/dr/:id" element={<DrByIdPage/>}/>
+
         <Route path="/auth">
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
@@ -26,7 +33,7 @@ function App() {
           <Route path="resetpw" element={<ResetPw />} />
         </Route>
       </Routes>
-      {!hideNavFot && <Footer/>}
+      {!hideNavFot && <Footer />}
     </Box>
   );
 }
