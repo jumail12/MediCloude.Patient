@@ -23,13 +23,15 @@ import { useState } from "react";
 import icon from "../assets/Images/ICON.png";
 import profile from "../assets/Images/proicon.jpg";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
+import { businessAxios } from "../api/axiosInstance";
 
 const Navbar = () => {
   const name = localStorage.getItem("name");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-//   const navigate = useNavigate();
+  //   const navigate = useNavigate();
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
@@ -45,6 +47,16 @@ const Navbar = () => {
     toast.info("Logged out successfully!");
     handleClose();
   };
+
+  const { data: unreadCount } = useQuery({
+    queryKey: ["notfi-count"],
+    queryFn: async () => {
+      const res = await businessAxios.get(
+        `/Notification/notifications/length?recipient_type=Patient`
+      );
+      return res?.data?.data ?? 0;
+    },
+  });
 
   return (
     <Box
@@ -101,7 +113,11 @@ const Navbar = () => {
           }}
         >
           <NavLinks />
-          <AuthSection name={name} handleProfileClick={handleProfileClick} />
+          <AuthSection
+            name={name}
+            handleProfileClick={handleProfileClick}
+            unreadCount={unreadCount}
+          />
         </Box>
 
         {/* Mobile Menu Button */}
@@ -136,7 +152,9 @@ const Navbar = () => {
                   </ListItemButton>
                 </ListItem>
               ))}
-              <ListItem>{AuthSection({ name, handleProfileClick })}</ListItem>
+              <ListItem>
+                {AuthSection({ name, handleProfileClick, unreadCount })}
+              </ListItem>
             </List>
           </Box>
         </Drawer>
@@ -164,7 +182,7 @@ const NavLinks = () => (
 );
 
 /** Authentication Section (Profile/Sign Up) */
-const AuthSection = ({ name, handleProfileClick }: any) =>
+const AuthSection = ({ name, handleProfileClick, unreadCount }: any) =>
   name ? (
     <Box display="flex" alignItems="center" gap={2}>
       <Tooltip title="Notifications" arrow>
@@ -173,7 +191,7 @@ const AuthSection = ({ name, handleProfileClick }: any) =>
           to="/notification"
           sx={{ textDecoration: "none" }}
         >
-          <Badge badgeContent={2} color="error">
+          <Badge badgeContent={unreadCount} color="error">
             <NotificationsIcon sx={iconStyles} />
           </Badge>
         </Link>

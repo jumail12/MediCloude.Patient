@@ -40,9 +40,6 @@ const DrByIdPageContainer = () => {
   });
 
 
-
-  
-
   const mockAppointments = [
     { date: "2025-04-10", time: "10:00 AM", patient: "John Doe" },
     { date: "2025-04-11", time: "11:30 AM", patient: "Jane Smith" },

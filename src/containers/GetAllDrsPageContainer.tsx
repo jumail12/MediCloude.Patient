@@ -51,6 +51,7 @@ const GetAllDrsPageContainer = () => {
       );
       return res.data.data;
     },
+    placeholderData: (prevData) => prevData,
   });
 
 
